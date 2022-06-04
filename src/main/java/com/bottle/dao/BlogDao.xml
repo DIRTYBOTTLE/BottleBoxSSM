@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bottle.dao.BlogDao">
+    <insert id="insertBlog" useGeneratedKeys = "true" keyProperty="id">
+        insert into blog(title, content, from_time, to_time, user_id)
+        values (#{title}, #{content}, #{fromTime}, #{toTime}, #{userId})
+    </insert>
+    <update id="updateBlog">
+        update blog
+        set title   = #{title},
+            content = #{content},
+            to_time = #{toTime}
+        where id = #{id}
+    </update>
+    <delete id="deleteBlog">
+        delete
+        from blog
+        where id = #{id}
+    </delete>
+    <select id="selectBlog" resultType="Blog">
+        select id, title, content, Date(from_time) as fromTime, Date(to_time) as toTime, user_id as userId
+        from blog
+        where id = #{id}
+    </select>
+    <select id="listBlog" resultType="Blog">
+        select id, title, content, Date(from_time) as fromTime, Date(to_time) as toTime, user_id as userId
+        from blog
+        where user_id = #{userId}
+    </select>
+</mapper>

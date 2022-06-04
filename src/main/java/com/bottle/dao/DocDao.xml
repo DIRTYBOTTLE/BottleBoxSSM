@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bottle.dao.DocDao">
+    <insert id="insertDoc">
+        insert into doc(name, uuid, time, user_id)
+        values (#{name}, #{uuid}, #{time}, #{userId})
+    </insert>
+    <select id="listDoc" resultType="Document">
+        select name, uuid, Date(time) as time
+        from doc
+        where user_id = #{userId}
+    </select>
+    <delete id="deleteDoc">
+        delete
+        from doc
+        where uuid = #{uuid}
+    </delete>
+</mapper>
