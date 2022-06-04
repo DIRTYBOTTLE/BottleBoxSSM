@@ -29,8 +29,7 @@ public class Result<T> {
         return this.data;
     }
 
-    public Result() {
-    }
+    public Result() {}
 
     public Result(T data) {
         this.data = data;
