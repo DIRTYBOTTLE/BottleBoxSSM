@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface UserService {
 
+    Result<?> login(User user);
+
     int addUser(User user);
 
     List<User> findUsers();
 
-    Result loginUser(User user);
+
 }

@@ -20,6 +20,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/login.do")
+    @ResponseBody
+    public Result<?> login(@RequestBody User user) {
+        return userService.login(user);
+    }
+
     @RequestMapping("/registerUser.do")
     public ModelAndView addUser(@RequestBody User user) {
         ModelAndView mv = new ModelAndView();
@@ -40,13 +46,8 @@ public class UserController {
     @RequestMapping("/queryUser.do")
     @ResponseBody
     public List<User> queryUser() {
-        List<User> users = userService.findUsers();
-        return users;
+        return userService.findUsers();
     }
 
-    @RequestMapping("/loginUser.do")
-    @ResponseBody
-    public Result loginUser(@RequestBody User user) {
-        return userService.loginUser(user);
-    }
+
 }
