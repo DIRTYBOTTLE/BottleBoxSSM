@@ -5,7 +5,6 @@ import com.bottle.domain.User;
 import com.bottle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +16,18 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping("/login.do")
+    @ResponseBody
+    public Result<?> login(@RequestBody User user) {
+        return userService.login(user);
+    }
 
     @RequestMapping("/registerUser.do")
     public ModelAndView addUser(@RequestBody User user) {
@@ -40,13 +49,8 @@ public class UserController {
     @RequestMapping("/queryUser.do")
     @ResponseBody
     public List<User> queryUser() {
-        List<User> users = userService.findUsers();
-        return users;
+        return userService.findUsers();
     }
 
-    @RequestMapping("/loginUser.do")
-    @ResponseBody
-    public Result loginUser(@RequestBody User user) {
-        return userService.loginUser(user);
-    }
+
 }

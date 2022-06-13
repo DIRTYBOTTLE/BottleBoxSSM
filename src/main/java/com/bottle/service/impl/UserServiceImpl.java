@@ -11,14 +11,22 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserDao userDao;
 
     @Override
+    public Result<?> login(User user) {
+        User selectUser = userDao.selectUser(user.getName(), user.getPassword());
+        if (selectUser != null) {
+            return Result.success(selectUser);
+        }
+        return Result.error();
+    }
+
+
+    @Override
     public int addUser(User user) {
-        int nums = userDao.insertUser(user);
-        return nums;
+        return userDao.insertUser(user);
     }
 
     @Override
@@ -26,12 +34,5 @@ public class UserServiceImpl implements UserService {
         return userDao.selectUsers();
     }
 
-    @Override
-    public Result loginUser(User user) {
-        int nums = userDao.loginUser(user).size();
-        if (nums>0) {
-            return Result.success();
-        }
-        return Result.error();
-    }
+
 }
